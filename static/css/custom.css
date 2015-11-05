@@ -1,0 +1,29 @@
+input, select{
+	width: 60% !important;
+	max-width: 300px !important;	
+	display: inline-block !important;
+	height: 30px !important;
+	margin: 0px !important;	
+	padding: 1px !important;
+	border: 1px solid #9BBF64 !important;
+	font-family: FreeMono !important;
+	color: black !important;
+	font-size: 18px !important;
+}
+
+#id_personal_id{
+	width: 100px !important;
+}
+
+label{
+	width: 20% !important;
+	min-width: 150px !important;
+	margin: 0 5% 0 0 !important;
+	text-align: right;
+	display: inline-block !important;
+	height: 30px !important;
+	overflow: hidden;
+	position: relative;
+	top: 15px !important;
+}
+
