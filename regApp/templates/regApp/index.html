@@ -30,6 +30,7 @@
 
 <link rel="stylesheet" type="text/css" href="{% static 'css/jquery.geokbd.css' %}" />
 
+<!-- GEORGIAN KEYBOARD -->
 <script src="{% static 'js/jquery.geokbd.js' %}"></script>
 
 <script type="text/javascript">
@@ -131,7 +132,6 @@
 					<h2 style='color: #0f6d30'>გახდით ჩვენი წევრი</h2>
 				</div>
 				{% if form %}
-<<<<<<< HEAD
 				<form action='.' method='POST'>
 					{% csrf_token %}
 			        <!-- FIRSTNAME -->
@@ -159,6 +159,8 @@
 						{% for error in form.personal_id.errors %}{{ error }}{% endfor %}
 					</div>	
 							
+			        <!-- FACEBOOK -->
+			        <a href="{% provider_login_url 'facebook' method='oauth2' next='/register/' %}">fb_auth</a>
 			        <!-- EMAIL -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.email.label_tag }}
@@ -220,132 +222,6 @@
 							value='გაწევრიანება' style='margin-top: 20px !important' />
 					</div>
 				</form>
-=======
-					<form action='.' method='POST'>
-						{% csrf_token %}
-						{% for field in form %}
-							{% if forloop.counter == 5 %}
-							<div style="width: 100%;">
-						    	<label for='country_id'>მისამართი</label>
-							    <select name="region_id" id="country_id" tabindex="1">
-									<option value="76" style="font-weight:bold;" disabled >უცხოეთი</option>
-									<option value="77" style=""  >&nbsp;&nbsp;ევროკავშირი</option>
-									<option value="78" style=""  >&nbsp;&nbsp;აშშ</option>
-									<option value="79" style=""  >&nbsp;&nbsp;დსთ</option>
-									<option value="80" style=""  >&nbsp;&nbsp;სხვა</option>
-									<option value="0">აირჩიეთ რაიონი</option>
-									<option value="1" style="font-weight:bold;" disabled >აჭარა</option>
-									<option value="2" style=""  >&nbsp;&nbsp;ბათუმი</option>
-									<option value="3" style=""  >&nbsp;&nbsp;ხელვაჩაური</option>
-									<option value="4" style=""  >&nbsp;&nbsp;ქობულეთი</option>
-									<option value="5" style=""  >&nbsp;&nbsp;შუახევი</option>
-									<option value="6" style=""  >&nbsp;&nbsp;ხულო</option>
-									<option value="7" style=""  >&nbsp;&nbsp;ქედა</option>
-									<option value="8" style="font-weight:bold;" disabled >გურია</option>
-									<option value="9" style=""  >&nbsp;&nbsp;ლანჩხუთი</option>
-									<option value="10" style=""  >&nbsp;&nbsp;ოზურგეთი</option>
-									<option value="11" style=""  >&nbsp;&nbsp;ჩოხატაური</option>
-									<option value="12" style="font-weight:bold;" disabled >შიდა ქართლი</option>
-									<option value="13" style=""  >&nbsp;&nbsp;ხაშური</option>
-									<option value="14" style=""  >&nbsp;&nbsp;კასპი</option>
-									<option value="15" style=""  >&nbsp;&nbsp;ქარელი</option>
-									<option value="16" style=""  >&nbsp;&nbsp;გორი</option>
-									<option value="17" style=""  >&nbsp;&nbsp;ლიახვი</option>
-									<option value="18" style="font-weight:bold;" disabled >მცხეთა-მთიანეთი</option>
-									<option value="19" style=""  >&nbsp;&nbsp;ახალგორი</option>
-									<option value="20" style=""  >&nbsp;&nbsp;თიანეთი</option>
-									<option value="21" style=""  >&nbsp;&nbsp;დუშეთი</option>
-									<option value="22" style=""  >&nbsp;&nbsp;მცხეთა</option>
-									<option value="23" style=""  >&nbsp;&nbsp;ყაზბეგი</option>
-									<option value="24" style="font-weight:bold;" disabled >რაჭა-ლეჩხუმი</option>
-									<option value="25" style=""  >&nbsp;&nbsp;ამბროლაური</option>
-									<option value="26" style=""  >&nbsp;&nbsp;ონი</option>
-									<option value="27" style=""  >&nbsp;&nbsp;ცაგერი</option>
-									<option value="28" style=""  >&nbsp;&nbsp;ლენტეხი</option>
-									<option value="29" style="font-weight:bold;" disabled >სამცხე-ჯავახეთი</option>
-									<option value="30" style=""  >&nbsp;&nbsp;ბორჯომი</option>
-									<option value="31" style=""  >&nbsp;&nbsp;ახალციხე</option>
-									<option value="32" style=""  >&nbsp;&nbsp;ახალქალაქი</option>
-									<option value="33" style=""  >&nbsp;&nbsp;ასპინძა</option>
-									<option value="34" style=""  >&nbsp;&nbsp;ადიგენი</option>
-									<option value="35" style=""  >&nbsp;&nbsp;ნინოწმინდა</option>
-									<option value="36" style="font-weight:bold;" disabled >კახეთი</option>
-									<option value="37" style=""  >&nbsp;&nbsp;ახმეტა</option>
-									<option value="38" style=""  >&nbsp;&nbsp;ყვარელი</option>
-									<option value="39" style=""  >&nbsp;&nbsp;ლაგოდეხი</option>
-									<option value="40" style=""  >&nbsp;&nbsp;გურჯაანი</option>
-									<option value="41" style=""  >&nbsp;&nbsp;სიღნაღი</option>
-									<option value="42" style=""  >&nbsp;&nbsp;საგარეჯო</option>
-									<option value="43" style=""  >&nbsp;&nbsp;დედოფლისწყარო</option>
-									<option value="44" style=""  >&nbsp;&nbsp;თელავი</option>
-									<option value="45" style="font-weight:bold;" disabled >იმერეთი</option>
-									<option value="46" style=""  >&nbsp;&nbsp;ქუთაისი</option>
-									<option value="47" style=""  >&nbsp;&nbsp;ბაღდათი</option>
-									<option value="48" style=""  >&nbsp;&nbsp;ვანი</option>
-									<option value="49" style=""  >&nbsp;&nbsp;თერჯოლა</option>
-									<option value="50" style=""  >&nbsp;&nbsp;ზესტაფონი</option>
-									<option value="51" style=""  >&nbsp;&nbsp;სამტრედია</option>
-									<option value="52" style=""  >&nbsp;&nbsp;ხონი</option>
-									<option value="53" style=""  >&nbsp;&nbsp;წყალტუბო</option>
-									<option value="54" style=""  >&nbsp;&nbsp;საჩხერე</option>
-									<option value="55" style=""  >&nbsp;&nbsp;ჭიათურა</option>
-									<option value="56" style=""  >&nbsp;&nbsp;ტყიბული</option>
-									<option value="57" style=""  >&nbsp;&nbsp;ხარაგაული</option>
-									<option value="58" style="font-weight:bold;" disabled >ქვემო ქართლი</option>
-									<option value="59" style=""  >&nbsp;&nbsp;რუსთავი</option>
-									<option value="60" style=""  >&nbsp;&nbsp;მარნეული</option>
-									<option value="61" style=""  >&nbsp;&nbsp;ბოლნისი</option>
-									<option value="62" style=""  >&nbsp;&nbsp;გარდაბანი</option>
-									<option value="63" style=""  >&nbsp;&nbsp;წალკა</option>
-									<option value="64" style=""  >&nbsp;&nbsp;დმანისი</option>
-									<option value="65" style=""  >&nbsp;&nbsp;თეთრიწყარო</option>
-									<option value="66" style="font-weight:bold;" disabled >სამეგრელო</option>
-									<option value="67" style=""  >&nbsp;&nbsp;ფოთი</option>
-									<option value="68" style=""  >&nbsp;&nbsp;მარტვილი</option>
-									<option value="69" style=""  >&nbsp;&nbsp;ხობი</option>
-									<option value="70" style=""  >&nbsp;&nbsp;ზუგდიდი</option>
-									<option value="71" style=""  >&nbsp;&nbsp;წალენჯიხა</option>
-									<option value="72" style=""  >&nbsp;&nbsp;ჩხოროწყუ</option>
-									<option value="73" style=""  >&nbsp;&nbsp;აბაშა</option>
-									<option value="74" style=""  >&nbsp;&nbsp;სენაკი</option>
-									<option value="75" style=""  >&nbsp;&nbsp;მესტია</option>
-									<option value="76" style="font-weight:bold;" disabled >თბილისი</option>
-									<option value="77" style=""  >&nbsp;&nbsp;მთაწმინდა</option>
-									<option value="78" style=""  >&nbsp;&nbsp;ვაკე</option>
-									<option value="79" style=""  >&nbsp;&nbsp;საბურთალო</option>
-									<option value="80" style=""  >&nbsp;&nbsp;კრწანისი</option>
-									<option value="81" style=""  >&nbsp;&nbsp;ისანი</option>
-									<option value="82" style=""  >&nbsp;&nbsp;სამგორი</option>
-									<option value="83" style=""  >&nbsp;&nbsp;ჩუღურეთი</option>
-									<option value="84" style=""  >&nbsp;&nbsp;დიდუბე</option>
-									<option value="85" style=""  >&nbsp;&nbsp;ნაძალადევი</option>
-									<option value="86" style=""  >&nbsp;&nbsp;გლდანი</option>
-								</select>
-							</div>
-						<div id='errorDiv' class=''
-	        				style='width: 100%; border-bottom: 1px dotted gray; 
-	        				color: red; font-size: 11px; padding-bottom: 10px'>
-						</div>
-							{% endif %}
-					        <div class='' style='width: 100%;'>
-					        	{{ field.label_tag }}
-					        	{{ field }}
-					        </div>
-		        			<div id='errorDiv' class=''
-		        				style='width: 100%; border-bottom: 1px dotted gray; 
-		        				color: red; font-size: 11px; padding-bottom: 10px'>
-								{% for error in field.errors %}
-									{{ error }}
-								{% endfor %}
-							</div>
-					    {% endfor %}
-
-					    <a href="{% provider_login_url 'facebook' method='oauth2' next='/register/' %}">fb_auth</a>
-
-						<input type="submit" id='id_submit' onclick="return validate();" 
-							value="გაწევრიანება" style='margin-top: 20px !important' />
-					</form>
->>>>>>> 92d7a413627d25639f592e613118e437e4d12478
 				{% endif %}	
 				{% if success %}
 					თქვენ წარმატებით გაიარეთ რეგისტრაცია
