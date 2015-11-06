@@ -1,4 +1,5 @@
 {% load staticfiles %}
+{% load socialaccount %}
 
 <!doctype html>
 <html lang="en">
@@ -219,6 +220,8 @@
 								{% endfor %}
 							</div>
 					    {% endfor %}
+
+					    <a href="{% provider_login_url 'facebook' method='oauth2' next='/register/' %}">fb_auth</a>
 
 						<input type="submit" id='id_submit' onclick="return validate();" 
 							value="გაწევრიანება" style='margin-top: 20px !important' />
