@@ -38,6 +38,7 @@ class Member(models.Model):
             ('work', 'სამსახურის')
         ),
         max_length = 12,
+        default = 'mobile',
     )
     phone = models.CharField(max_length = 15)   
     # location

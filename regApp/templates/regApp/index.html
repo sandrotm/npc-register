@@ -154,6 +154,11 @@
 				<form action='.' method='POST'>
 					{% csrf_token %}
 			        <!-- FIRSTNAME -->
+        			<div id='errorDiv-0' style='width: 100%; color: red; text-align: center'>
+        				{% if form.errors %}
+        					გთხოვთ გაასწოროთ შეცდომები
+        				{% endif %}
+					</div>			        
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.first_name.label_tag }}
 			        	{{ form.first_name }}
@@ -281,7 +286,7 @@
 							თქვენ ხართ ახალი პოლიტიკური ცენტრის ბაზაში!<br /><br />
 							ეწვიეთ ჩვენს გვერდს Facebook-ზე:
 						</h5>
-						<div class="fb-page" data-href="https://www.facebook.com/NewPoliticalCenter" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/NewPoliticalCenter"><a href="https://www.facebook.com/NewPoliticalCenter">ახალი პოლიტიკური ცენტრი \ New Political Center</a></blockquote></div></div>
+						<div class="fb-page" data-href="https://www.facebook.com/NewPoliticalCenter/?fref=ts" data-width="460" data-small-header="true" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/NewPoliticalCenter/?fref=ts"><a href="https://www.facebook.com/NewPoliticalCenter/?fref=ts">ახალი პოლიტიკური ცენტრი \ New Political Center</a></blockquote></div></div>
 					</div>
 				{% endif %}			
 			</div>

@@ -11,7 +11,7 @@ input, select{
 }
 
 select#id_phone_type{
-	width: 90px !important;
+	width: 94px !important;
 	font-size: 13px !important;
 	position: relative !important;
 	top: -1px !important;		
