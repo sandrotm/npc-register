@@ -30,7 +30,9 @@
 		</div>		
 		<div class='row'>
 			<div class='columns small-6 small-centered'>
-				<h2>გახდით ჩვენი წევრი:</h2>
+				<div style='width: 100%; text-align: center'>
+					<h2>გახდით ჩვენი წევრი:</h2>
+				</div>
 				{% if form %}
 					<form action='.' method='POST'>
 						{% csrf_token %}
@@ -47,8 +49,10 @@
 								{% endfor %}
 							</div>
 					    {% endfor %}
-						<input type="submit"
-							value="გაწევრიანება" style='margin-top: 20px !important' />
+						<div style='width: 100%; text-align: center'>
+							<input type="submit"
+								value="გაწევრიანება" style='margin-top: 20px !important' />
+						</div>
 					</form>
 				{% endif %}	
 				{% if success %}

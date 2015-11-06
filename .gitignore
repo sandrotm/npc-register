@@ -1,0 +1,11 @@
+$ cat .gitignore
+*.sqlite3
+*.[oa]
+*~
+*.pyc
+*.env
+*.jpg
+*.png
+*.PNG
+*.jpeg
+*.JPEG
