@@ -15,6 +15,7 @@
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"/>
 	<link rel="stylesheet" type="text/css" href="{% static 'app.css' %}"/>
+
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
@@ -22,38 +23,191 @@
 </head>
 
 <body>
+
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+
+<script type="text/javascript">
+	var fnameHTML = "<div class='form-field-holder'>" 
+		+ "<label for='id_fname'>სახელი:</label>" 
+		+ "<input id='id_fname' maxlength='95' type='text'></div>"
+	var lnameHTML = "<div style='width:100%;'>"
+		+ "<label for='id_lname'>გვარი:</label>"
+		+ "<input id='id_lname' maxlength='95' type='text'></div>"
+
+	var personalNumHTML = "<div class='form-field-holder'>"
+		+ "<label for='personalNum' style='height: 40px !important; "
+		+ "top: 14px !important; margin-top: -14px !important'>"
+		+ "გაიმეორეთ პირადი ნომერი:</label>"
+		+ "<input id='id_personal_id-repeat' maxlength='11' required "
+		+ "placeholder='XXXXXXXXXXX' style='margin-left: 4px !important' type='text'></div>"
+
+	var errorDiv = "<div id='DIV_ID' style='width: 100%; "
+		+ "border-bottom: 1px dotted gray; color: red; font-size: 11px; padding-bottom: 10px'>"
+
+	var errors;
+
+	$(document).ready(function(){
+		errorDiv = errorDiv.replace('DIV_ID', 'errorDiv1');
+		/*$(fnameHTML).insertAfter($('#errorDiv'));
+		$(errorDiv).insertAfter($('#id_fname').closest('div'));
+
+		$(lnameHTML).insertAfter($('#errorDiv1'));
+		$(errorDiv).insertAfter($('#id_lname').closest('div'));*/
+
+		errorDiv = errorDiv.replace('errorDiv1', 'errorDiv2')
+		$(errorDiv).insertAfter($('#id_personal_id').closest('div'));
+		$(personalNumHTML).insertAfter($('#errorDiv2'));
+
+		/*$('#id_fname').val($('#id_first_name').val())
+		$('#id_lname').val($('#id_last_name').val())*/
+		$('#id_personal_id-repeat').val($('#id_personal_id').val())
+	});
+
+	function validate(){
+		/*var fname1 = $('#id_fname');
+		var fname2 = $('#id_first_name');
+		var lname1 = $('#id_lname');
+		var lname2 = $('#id_last_name');*/
+		var pnum1 = $('#id_personal_id');
+		var pnum2 = $('#id_personal_id-repeat');
+		/*console.log(fname1.val() + ' - ' + fname2.val())
+		if (fname1.val() == '' || fname2 == '')
+			console.log('validation error fname blank')
+		if (lname2.val() == '' || fname2 == '')
+			console.log('validation error lname blank')*/
+		if (pnum1.val() == '' || pnum2.val() == '')
+			console.log('validation error pnum blank')
+
+		/*if (fname1.val() != fname2.val())
+			console.log('validation error no fname match')
+		if (lname1.val() != lname2.val())
+			console.log('validation error no lname match')*/
+		if (pnum1.val() != pnum2.val())
+			console.log('validation error no pnum match')
+		if (pnum1.val().length != 11)
+			console.log('validation error invalid pnum')
+	}
+</script>
+
+
 	<div class='full-width'>
 		<div class='row' style='padding-top: 40px; margin-bottom: 20px'>
 			<div class='columns small-6 small-centered'>
-				<img src='../media/images/npc_header2.png' />
+				<div style='width: 30%; text-align: right; float: left'>
+					<h3 style='font-family: lestudioCaps;
+						font-size: 20px; text-align: right;
+						line-height: 22px; margin-top: 70px; color: #667766;
+						margin-right: 30px'>
+						NEW<br/>POLITICAL<br/>CENTER<br/><nobr>&mdash; GIRCHI</nobr>
+					</h3>				
+				</div>
+				<div style='width: 40%; text-align: right; float: left'>
+					<img src='../media/images/npc_header3.png' style='float: left'/>
+				</div>
+				<div style='width: 30%; text-align: left; float: left'>
+					<h3 style='font-family: lestudioCaps;
+						font-size: 20px;
+						line-height: 22px; margin-top: 70px; color: #667766;
+						margin-left: 30px'>
+						ახალი<br/>პოლიტიკური<br/><nobr>ცენტრი &mdash;</nobr><br/>გირჩი
+					</h3>
+				</div>
 			</div>
 		</div>		
 		<div class='row'>
-			<div class='columns small-6 small-centered'>
+			<div class='columns small-6 small-centered' style='margin-bottom: 30px'>
 				<div style='width: 100%; text-align: center'>
-					<h2>გახდით ჩვენი წევრი:</h2>
+					<h2 style='color: #0f6d30'>გახდით ჩვენი წევრი</h2>
 				</div>
 				{% if form %}
-					<form action='.' method='POST'>
-						{% csrf_token %}
-						{% for field in form %}
-					        <div class='' style='width: 100%'>
-					        	{{ field.label_tag }}
-					        	{{ field }}
-					        </div>
-		        			<div class='' 
-		        				style='width: 100%; border-bottom: 1px dotted gray; 
-		        				color: red; font-size: 11px; padding-bottom: 10px'>
-								{% for error in field.errors %}
-									{{ error }}
-								{% endfor %}
-							</div>
-					    {% endfor %}
-						<div style='width: 100%; text-align: center'>
-							<input type="submit"
-								value="გაწევრიანება" style='margin-top: 20px !important' />
-						</div>
-					</form>
+				<form action='.' method='POST'>
+					{% csrf_token %}
+			        <!-- FIRSTNAME -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.first_name.label_tag }}
+			        	{{ form.first_name }}
+			        </div>
+        			<div id='errorDiv-1' class='error-holder'>
+						{% for error in form.first_name.errors %}{{ error }}{% endfor %}
+					</div>	
+			        <!-- LASTNAME -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.last_name.label_tag }}
+			        	{{ form.last_name }}
+			        </div>
+        			<div id='errorDiv-2' class='error-holder'>
+						{% for error in form.last_name.errors %}{{ error }}{% endfor %}
+					</div>
+			        <!-- PERSONAL ID -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.personal_id.label_tag }}
+			        	{{ form.personal_id }}
+			        </div>
+        			<div id='errorDiv-3' class='error-holder'>
+						{% for error in form.personal_id.errors %}{{ error }}{% endfor %}
+					</div>	
+							
+			        <!-- EMAIL -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.email.label_tag }}
+			        	{{ form.email }}
+			        </div>
+        			<div id='errorDiv-4' class='error-holder'>
+						{% for error in form.email.errors %}{{ error }}{% endfor %}
+					</div>
+			        <!-- PHONE TYPE / PHONE -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.phone.label_tag }}
+			        	{{ form.phone_type }}
+			        	{{ form.phone }}
+			        </div>
+        			<div id='errorDiv-5' class='error-holder'>
+						{% for error in form.phone.errors %}{{ error }}{% endfor %}
+					</div>					
+					
+					<!-- REGION / DISTRICT -->
+					<div style='width: 100%;'>
+				    	{{ form.district.label_tag }}
+					    <select name='' id='region_id' tabindex='1'>
+					    	{% include 'regApp/parts/region-options.html' %}
+						</select>
+					</div>
+        			<div id='errorDiv-6' class='error-holder'>
+						{% for error in form.district.errors %}{{ error }}{% endfor %}
+					</div>
+
+			        <!-- SETTLEMENT -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.settlement.label_tag }}
+			        	{{ form.settlement }}
+			        </div>
+        			<div id='errorDiv-7' class='error-holder'>
+						{% for error in form.settlement.errors %}{{ error }}{% endfor %}
+					</div>
+					
+			        <!-- ADDRESS -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.address.label_tag }}
+			        	{{ form.address }}
+			        </div>
+        			<div id='errorDiv-8' class='error-holder'>
+						{% for error in form.address.errors %}{{ error }}{% endfor %}
+					</div>		
+					
+			        <!-- BIRTHDATE -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.birth_date.label_tag }}
+			        	{{ form.birth_date }}
+			        </div>
+        			<div id='errorDiv-8' class='error-holder'>
+						{% for error in form.birth_date.errors %}{{ error }}{% endfor %}
+					</div>								
+
+					<div style='width: 100%; text-align: center'>
+						<input type='submit'
+							value='გაწევრიანება' style='margin-top: 20px !important' />
+					</div>
+				</form>
 				{% endif %}	
 				{% if success %}
 					თქვენ წარმატებით გაიარეთ რეგისტრაცია
@@ -63,101 +217,4 @@
 	</div>
 </body>
 
-
-
-
-<!--
-<select name="region_id" id="country_id" tabindex="1">
-	<option value="76" style="font-weight:bold;" disabled >უცხოეთი</option>
-	<option value="77" style=""  >&nbsp;&nbsp;ევროკავშირი</option>
-	<option value="78" style=""  >&nbsp;&nbsp;აშშ</option>
-	<option value="79" style=""  >&nbsp;&nbsp;დსთ</option>
-	<option value="80" style=""  >&nbsp;&nbsp;სხვა</option>
-	<option value="0">აირჩიეთ რაიონი</option>
-	<option value="1" style="font-weight:bold;" disabled >აჭარა</option>
-	<option value="2" style=""  >&nbsp;&nbsp;ბათუმი</option>
-	<option value="3" style=""  >&nbsp;&nbsp;ხელვაჩაური</option>
-	<option value="4" style=""  >&nbsp;&nbsp;ქობულეთი</option>
-	<option value="5" style=""  >&nbsp;&nbsp;შუახევი</option>
-	<option value="6" style=""  >&nbsp;&nbsp;ხულო</option>
-	<option value="7" style=""  >&nbsp;&nbsp;ქედა</option>
-	<option value="8" style="font-weight:bold;" disabled >გურია</option>
-	<option value="9" style=""  >&nbsp;&nbsp;ლანჩხუთი</option>
-	<option value="10" style=""  >&nbsp;&nbsp;ოზურგეთი</option>
-	<option value="11" style=""  >&nbsp;&nbsp;ჩოხატაური</option>
-	<option value="12" style="font-weight:bold;" disabled >შიდა ქართლი</option>
-	<option value="13" style=""  >&nbsp;&nbsp;ხაშური</option>
-	<option value="14" style=""  >&nbsp;&nbsp;კასპი</option>
-	<option value="15" style=""  >&nbsp;&nbsp;ქარელი</option>
-	<option value="16" style=""  >&nbsp;&nbsp;გორი</option>
-	<option value="17" style=""  >&nbsp;&nbsp;ლიახვი</option>
-	<option value="18" style="font-weight:bold;" disabled >მცხეთა-მთიანეთი</option>
-	<option value="19" style=""  >&nbsp;&nbsp;ახალგორი</option>
-	<option value="20" style=""  >&nbsp;&nbsp;თიანეთი</option>
-	<option value="21" style=""  >&nbsp;&nbsp;დუშეთი</option>
-	<option value="22" style=""  >&nbsp;&nbsp;მცხეთა</option>
-	<option value="23" style=""  >&nbsp;&nbsp;ყაზბეგი</option>
-	<option value="24" style="font-weight:bold;" disabled >რაჭა-ლეჩხუმი</option>
-	<option value="25" style=""  >&nbsp;&nbsp;ამბროლაური</option>
-	<option value="26" style=""  >&nbsp;&nbsp;ონი</option>
-	<option value="27" style=""  >&nbsp;&nbsp;ცაგერი</option>
-	<option value="28" style=""  >&nbsp;&nbsp;ლენტეხი</option>
-	<option value="29" style="font-weight:bold;" disabled >სამცხე-ჯავახეთი</option>
-	<option value="30" style=""  >&nbsp;&nbsp;ბორჯომი</option>
-	<option value="31" style=""  >&nbsp;&nbsp;ახალციხე</option>
-	<option value="32" style=""  >&nbsp;&nbsp;ახალქალაქი</option>
-	<option value="33" style=""  >&nbsp;&nbsp;ასპინძა</option>
-	<option value="34" style=""  >&nbsp;&nbsp;ადიგენი</option>
-	<option value="35" style=""  >&nbsp;&nbsp;ნინოწმინდა</option>
-	<option value="36" style="font-weight:bold;" disabled >კახეთი</option>
-	<option value="37" style=""  >&nbsp;&nbsp;ახმეტა</option>
-	<option value="38" style=""  >&nbsp;&nbsp;ყვარელი</option>
-	<option value="39" style=""  >&nbsp;&nbsp;ლაგოდეხი</option>
-	<option value="40" style=""  >&nbsp;&nbsp;გურჯაანი</option>
-	<option value="41" style=""  >&nbsp;&nbsp;სიღნაღი</option>
-	<option value="42" style=""  >&nbsp;&nbsp;საგარეჯო</option>
-	<option value="43" style=""  >&nbsp;&nbsp;დედოფლისწყარო</option>
-	<option value="44" style=""  >&nbsp;&nbsp;თელავი</option>
-	<option value="45" style="font-weight:bold;" disabled >იმერეთი</option>
-	<option value="46" style=""  >&nbsp;&nbsp;ქუთაისი</option>
-	<option value="47" style=""  >&nbsp;&nbsp;ბაღდათი</option>
-	<option value="48" style=""  >&nbsp;&nbsp;ვანი</option>
-	<option value="49" style=""  >&nbsp;&nbsp;თერჯოლა</option>
-	<option value="50" style=""  >&nbsp;&nbsp;ზესტაფონი</option>
-	<option value="51" style=""  >&nbsp;&nbsp;სამტრედია</option>
-	<option value="52" style=""  >&nbsp;&nbsp;ხონი</option>
-	<option value="53" style=""  >&nbsp;&nbsp;წყალტუბო</option>
-	<option value="54" style=""  >&nbsp;&nbsp;საჩხერე</option>
-	<option value="55" style=""  >&nbsp;&nbsp;ჭიათურა</option>
-	<option value="56" style=""  >&nbsp;&nbsp;ტყიბული</option>
-	<option value="57" style=""  >&nbsp;&nbsp;ხარაგაული</option>
-	<option value="58" style="font-weight:bold;" disabled >ქვემო ქართლი</option>
-	<option value="59" style=""  >&nbsp;&nbsp;რუსთავი</option>
-	<option value="60" style=""  >&nbsp;&nbsp;მარნეული</option>
-	<option value="61" style=""  >&nbsp;&nbsp;ბოლნისი</option>
-	<option value="62" style=""  >&nbsp;&nbsp;გარდაბანი</option>
-	<option value="63" style=""  >&nbsp;&nbsp;წალკა</option>
-	<option value="64" style=""  >&nbsp;&nbsp;დმანისი</option>
-	<option value="65" style=""  >&nbsp;&nbsp;თეთრიწყარო</option>
-	<option value="66" style="font-weight:bold;" disabled >სამეგრელო</option>
-	<option value="67" style=""  >&nbsp;&nbsp;ფოთი</option>
-	<option value="68" style=""  >&nbsp;&nbsp;მარტვილი</option>
-	<option value="69" style=""  >&nbsp;&nbsp;ხობი</option>
-	<option value="70" style=""  >&nbsp;&nbsp;ზუგდიდი</option>
-	<option value="71" style=""  >&nbsp;&nbsp;წალენჯიხა</option>
-	<option value="72" style=""  >&nbsp;&nbsp;ჩხოროწყუ</option>
-	<option value="73" style=""  >&nbsp;&nbsp;აბაშა</option>
-	<option value="74" style=""  >&nbsp;&nbsp;სენაკი</option>
-	<option value="75" style=""  >&nbsp;&nbsp;მესტია</option>
-	<option value="76" style="font-weight:bold;" disabled >თბილისი</option>
-	<option value="77" style=""  >&nbsp;&nbsp;მთაწმინდა</option>
-	<option value="78" style=""  >&nbsp;&nbsp;ვაკე</option>
-	<option value="79" style=""  >&nbsp;&nbsp;საბურთალო</option>
-	<option value="80" style=""  >&nbsp;&nbsp;კრწანისი</option>
-	<option value="81" style=""  >&nbsp;&nbsp;ისანი</option>
-	<option value="82" style=""  >&nbsp;&nbsp;სამგორი</option>
-	<option value="83" style=""  >&nbsp;&nbsp;ჩუღურეთი</option>
-	<option value="84" style=""  >&nbsp;&nbsp;დიდუბე</option>
-	<option value="85" style=""  >&nbsp;&nbsp;ნაძალადევი</option>
-	<option value="86" style=""  >&nbsp;&nbsp;გლდანი</option>
-</select>
+-1

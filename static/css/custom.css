@@ -3,13 +3,58 @@ input, select{
 	max-width: 300px !important;	
 	display: inline-block !important;
 	height: 30px !important;
-	margin: 0px !important;	
-	padding: 1px !important;
+	margin: 10px 0 0 0 !important;	
+	padding: 2px !important;
 	border: 1px solid #9BBF64 !important;
-	font-family: FreeMono !important;
 	color: black !important;
-	font-size: 18px !important;
+	font-size: 16px !important;
 }
+
+select#id_phone_type{
+	width: 90px !important;
+	font-size: 13px !important;
+	position: relative !important;
+	top: -1px !important;		
+}
+
+select#id_birth_date_day, select#id_birth_date_month, select#id_birth_date_year{
+	width: 40px !important;
+	font-size: 13px !important;
+	position: relative !important;
+	top: -1px !important;		
+	direction: rtl;		
+	padding-right: 12px !important;
+}
+
+select#id_birth_date_month{
+	width: 90px !important;	
+}
+
+select#id_birth_date_year{
+	width: 70px !important;		
+}
+
+select#id_district{
+	width: 170px !important;		
+}
+
+select#id_birth_date_day option, select#id_birth_date_month option, select#id_birth_date_year option{
+	direction ltr;
+}
+
+input#id_personal_id, input#id_personal_id-repeat{
+	width: 125px !important;
+	font-size: 18px !important;
+	font-family: FreeMono !important;
+}
+
+input#id_phone{
+	width: 158px !important;
+	font-size: 18px !important;
+	font-family: FreeMono !important;
+}
+
+/*	font-family: FreeMono !important;*/
 
 #id_personal_id{
 	width: 100px !important;
@@ -22,8 +67,22 @@ label{
 	text-align: right;
 	display: inline-block !important;
 	height: 30px !important;
+	line-height: 20px;
 	overflow: hidden;
 	position: relative;
 	top: 15px !important;
 }
 
+div.form-field-holder{
+	
+}
+
+div.error-holder{
+	width: 100%; border-bottom: 1px dotted gray; 
+    color: red; font-size: 11px; padding-bottom: 10px
+}
+
+@font-face {
+    font-family: lestudioCaps;
+    src: url(../fonts/bpg_le_studio_02_caps.ttf);
+}

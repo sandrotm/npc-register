@@ -30,10 +30,6 @@ class Member(models.Model):
     personal_id = models.CharField(max_length = 12, verbose_name = 'პირადი ნომერი')    
     # contact
     email = models.EmailField(verbose_name = 'ელ-ფოსტა')
-    # location
-    district = models.ForeignKey(District, verbose_name = 'რაიონი')    
-    settlement = models.CharField(max_length = 95, verbose_name = 'ქალაქი ან სოფელი')
-    address = models.CharField(max_length = 190, verbose_name = 'მისამართი') 
     phone_type = models.CharField(
         choices = (
             ('mobile', 'მობილური'), 
@@ -42,7 +38,11 @@ class Member(models.Model):
         ),
         max_length = 12,
     )
-    phone = models.CharField(max_length = 15)        
+    phone = models.CharField(max_length = 15)    
+    # location
+    district = models.ForeignKey(District, verbose_name = 'რაიონი')    
+    settlement = models.CharField(max_length = 95, verbose_name = 'ქალაქი ან სოფელი')
+    address = models.CharField(max_length = 190, verbose_name = 'მისამართი')        
     # demographics    
     birth_date = models.DateField(verbose_name = 'დაბადების თარიღი')
     '''sex = models.CharField(choices = (('male', 'მამრობითი'), ('female', 'მდედრობითი')),

@@ -9,8 +9,7 @@ def index(request):
 		form = MemberForm(request.POST)
 		# check whether it's valid:
 		if form.is_valid():
-			form.save()
-			
+			form.save()			
 			return render(request, 'regApp/index.html', {'success': success})
 		else:
 			return render(request, 'regApp/index.html', {'form': form})
