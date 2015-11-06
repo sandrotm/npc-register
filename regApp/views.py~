@@ -1,0 +1,15 @@
+from django.shortcuts import render
+
+# Create your views here.
+def view(request):
+	try:
+		context = []
+		if request.method == 'POST':
+			pass
+		elif request.method == 'GET':
+			pass
+
+		return render(request, 'regApp/index.html', context)
+	except Exception as ge:
+		print('from index = ' + str(ge))
+		return HttpResponse(ge)
