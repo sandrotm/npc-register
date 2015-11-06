@@ -9,7 +9,7 @@ from django.core.validators import RegexValidator, MinLengthValidator, MaxLength
 class MemberForm(ModelForm): 
     numeric_only = RegexValidator(r'^[0-9]{11,11}$', 'პირადი ნომერი ზუსტად 11 ციფრისგან შედგება')
     telephone = RegexValidator(r'(\d{3})\D*(\d{3})\D*(\d{3})$')
-    YEARS = (x for x in range(1930, 2015))
+    YEARS = [x for x in range(1900, 1930)]#(x for x in range(1930, 2000))
 
     personal_id = forms.CharField(validators=[
             numeric_only,

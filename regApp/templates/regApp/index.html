@@ -11,10 +11,11 @@
 	<!--this meta is needed to render adequately on mobiles, 
 		taking into account physical screen sizes, 
 		rather than just pixels-->
-	<meta name="viewport" content="width=device-width, initial-scale=1">	
+	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"/>
-	<link rel="stylesheet" type="text/css" href="{% static 'app.css' %}"/>
+
+	<link rel="stylesheet" type="text/css" href="{% static 'app.css' %}"
 
 
 	<!--[if lt IE 9]>
@@ -27,6 +28,10 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
 
+<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.geokbd.css' %}" />
+
+<script src="{% static 'js/jquery.geokbd.js' %}"></script>
+
 <script type="text/javascript">
 	var fnameHTML = "<div style='width:100%;'><label for='id_fname'>სახელი:</label><input id='id_fname' maxlength='95' type='text'</div>"
 	var lnameHTML = "<div style='width:100%;'><label for='id_lname'>გვარი:</label><input id='id_lname' maxlength='95' type='text'</div>"
@@ -38,6 +43,7 @@
 	var errors;
 
 	$(document).ready(function(){
+		$('#kbd-switcher').geokbd();
 		errorDiv = errorDiv.replace('DIV_ID', 'errorDiv1');
 		$(fnameHTML).insertAfter($('#errorDiv'));
 		$(errorDiv).insertAfter($('#id_fname').closest('div'));
@@ -78,7 +84,11 @@
 		if (pnum1.val().length != 11)
 			console.log('validation error invalid pnum')
 	}
+
+	$('#id_first_name').geokbd();
 </script>
+
+	<input id='kbd-switcher' type="checkbox"/>
 
 
 	<div class='full-width'>
