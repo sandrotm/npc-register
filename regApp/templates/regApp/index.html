@@ -15,8 +15,8 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1">
 
 	<link rel="stylesheet" type="text/css" href="{% static 'css/custom.css' %}"/>
-
-	<link rel="stylesheet" type="text/css" href="{% static 'app.css' %}"
+	<link rel="stylesheet" type="text/css" href="{% static 'app.css' %}"/>
+	<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.geokbd.css' %}" />
 
 	<!--[if lt IE 9]>
 	<script src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
@@ -26,13 +26,20 @@
 
 <body>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
-
-<link rel="stylesheet" type="text/css" href="{% static 'css/jquery.geokbd.css' %}" />
-
+<script src="{% static 'js/jquery.js' %}"></script>
 <!-- GEORGIAN KEYBOARD -->
 <script src="{% static 'js/jquery.geokbd.js' %}"></script>
 
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+  var js, fjs = d.getElementsByTagName(s)[0];
+  if (d.getElementById(id)) return;
+  js = d.createElement(s); js.id = id;
+  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=490687911029882";
+  fjs.parentNode.insertBefore(js, fjs);
+}(document, 'script', 'facebook-jssdk'));</script>
+
+<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
 <script type="text/javascript">
 	var fnameHTML = "<div class='form-field-holder'>" 
 		+ "<label for='id_fname'>სახელი:</label>" 
@@ -46,29 +53,32 @@
 		+ "top: 14px !important; margin-top: -14px !important'>"
 		+ "გაიმეორეთ პირადი ნომერი:</label>"
 		+ "<input id='id_personal_id-repeat' maxlength='11' required "
-		+ "placeholder='XXXXXXXXXXX' style='margin-left: 4px !important' type='text'></div>"
+		+ "placeholder='XXXXXXXXXXX' style='margin-left: 4px !important; "
+		+ "margin-right: 4px !important' type='text'>"
+		+ "<span class='aucilebel'>*</span></div>"
 
-	var errorDiv = "<div id='DIV_ID' style='width: 100%; "
-		+ "border-bottom: 1px dotted gray; color: red; font-size: 11px; padding-bottom: 10px'>"
+	var errorDiv = "<div id='errorDiv-31' class='error-holder'></div>"
 
 	var errors;
+	var selectedItem = '';
 
 	$(document).ready(function(){
 		$('#kbd-switcher').geokbd();
-		errorDiv = errorDiv.replace('DIV_ID', 'errorDiv1');
-		/*$(fnameHTML).insertAfter($('#errorDiv'));
+		/*errorDiv = errorDiv.replace('DIV_ID', 'errorDiv1');
+		$(fnameHTML).insertAfter($('#errorDiv'));
 		$(errorDiv).insertAfter($('#id_fname').closest('div'));
-
 		$(lnameHTML).insertAfter($('#errorDiv1'));
-		$(errorDiv).insertAfter($('#id_lname').closest('div'));*/
-
+		$(errorDiv).insertAfter($('#id_lname').closest('div'));
 		errorDiv = errorDiv.replace('errorDiv1', 'errorDiv2')
-		$(errorDiv).insertAfter($('#id_personal_id').closest('div'));
-		$(personalNumHTML).insertAfter($('#errorDiv2'));
-
+		$(errorDiv).insertAfter($('#id_personal_id').closest('div'));*/
+		$(personalNumHTML + errorDiv).insertAfter($('#errorDiv-3'));
 		/*$('#id_fname').val($('#id_first_name').val())
 		$('#id_lname').val($('#id_last_name').val())*/
 		$('#id_personal_id-repeat').val($('#id_personal_id').val())
+		
+		var currentDistrict = $('#id_district').val();
+		var query = '#id_district-mask option:contains(' + currentDistrict + ')';
+		$(query).attr('selected', true);
 	});
 
 	function validate(){
@@ -78,25 +88,30 @@
 		var lname2 = $('#id_last_name');*/
 		var pnum1 = $('#id_personal_id');
 		var pnum2 = $('#id_personal_id-repeat');
+		var errorString = '';
 		/*console.log(fname1.val() + ' - ' + fname2.val())
 		if (fname1.val() == '' || fname2 == '')
 			console.log('validation error fname blank')
 		if (lname2.val() == '' || fname2 == '')
 			console.log('validation error lname blank')*/
-		if (pnum1.val() == '' || pnum2.val() == '')
-			console.log('validation error pnum blank')
-
 		/*if (fname1.val() != fname2.val())
 			console.log('validation error no fname match')
 		if (lname1.val() != lname2.val())
 			console.log('validation error no lname match')*/
-		if (pnum1.val() != pnum2.val())
-			console.log('validation error no pnum match')
-		if (pnum1.val().length != 11)
-			console.log('validation error invalid pnum')
+		if (pnum1.val() != pnum2.val()){
+			$('#errorDiv-31').text('პირადი ნომრები არ ემთხვევა')
+			return false }
+		else
+			return true
 	}
 
 	$('#id_first_name').geokbd();
+	
+	function selected(element){
+		value = $('#id_district-mask option:selected').text();
+		selectedItem = value;
+		$('#id_district').attr('value', value);
+	}	
 </script>
 
 	<input id='kbd-switcher' type="checkbox"/>
@@ -104,7 +119,7 @@
 
 	<div class='full-width'>
 		<div class='row' style='padding-top: 40px; margin-bottom: 20px'>
-			<div class='columns small-6 small-centered'>
+			<div class='columns small-12 medium-9 large-6 small-centered'>
 				<div style='width: 30%; text-align: right; float: left'>
 					<h3 style='font-family: lestudioCaps;
 						font-size: 20px; text-align: right;
@@ -127,17 +142,22 @@
 			</div>
 		</div>		
 		<div class='row'>
-			<div class='columns small-6 small-centered' style='margin-bottom: 30px'>
+			<div class='columns small-12 medium-9 large-6 small-centered' style='margin-bottom: 30px'>
+				{% if form %}
 				<div style='width: 100%; text-align: center'>
 					<h2 style='color: #0f6d30'>გახდით ჩვენი წევრი</h2>
-				</div>
-				{% if form %}
+					<h5 style='color: #667766'>
+						<span class='aucilebel'>*</span>
+							 &mdash; აუცილებელი ველი
+					</h5>
+				</div>				
 				<form action='.' method='POST'>
 					{% csrf_token %}
 			        <!-- FIRSTNAME -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.first_name.label_tag }}
 			        	{{ form.first_name }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
         			<div id='errorDiv-1' class='error-holder'>
 						{% for error in form.first_name.errors %}{{ error }}{% endfor %}
@@ -146,6 +166,7 @@
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.last_name.label_tag }}
 			        	{{ form.last_name }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
         			<div id='errorDiv-2' class='error-holder'>
 						{% for error in form.last_name.errors %}{{ error }}{% endfor %}
@@ -154,13 +175,14 @@
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.personal_id.label_tag }}
 			        	{{ form.personal_id }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
         			<div id='errorDiv-3' class='error-holder'>
 						{% for error in form.personal_id.errors %}{{ error }}{% endfor %}
 					</div>	
 							
 			        <!-- FACEBOOK -->
-			        <a href="{% provider_login_url 'facebook' method='oauth2' next='/register/' %}">fb_auth</a>
+			        <!--<a href="{% provider_login_url 'facebook' method='oauth2' next='/register/' %}">fb_auth</a>-->
 			        <!-- EMAIL -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.email.label_tag }}
@@ -174,17 +196,25 @@
 			        	{{ form.phone.label_tag }}
 			        	{{ form.phone_type }}
 			        	{{ form.phone }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
         			<div id='errorDiv-5' class='error-holder'>
+        				{% for error in form.phone_type.errors %}
+        					{{ error }}
+        					{% if forloop.last %}<br />{% endif %}
+        				{% endfor %}
 						{% for error in form.phone.errors %}{{ error }}{% endfor %}
 					</div>					
 					
 					<!-- REGION / DISTRICT -->
 					<div style='width: 100%;'>
 				    	{{ form.district.label_tag }}
-					    <select name='' id='region_id' tabindex='1'>
+					    <select name='district-mask' id='id_district-mask'
+					    	onchange='selected(this)' tabindex='1'>
 					    	{% include 'regApp/parts/region-options.html' %}
-						</select>
+						</select>		
+						<span class='aucilebel'>*</span>								    	
+				    	<div style='height: 0; overflow: hidden'>{{ form.district }}</div>
 					</div>
         			<div id='errorDiv-6' class='error-holder'>
 						{% for error in form.district.errors %}{{ error }}{% endfor %}
@@ -194,6 +224,7 @@
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.settlement.label_tag }}
 			        	{{ form.settlement }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
         			<div id='errorDiv-7' class='error-holder'>
 						{% for error in form.settlement.errors %}{{ error }}{% endfor %}
@@ -203,6 +234,7 @@
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.address.label_tag }}
 			        	{{ form.address }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
         			<div id='errorDiv-8' class='error-holder'>
 						{% for error in form.address.errors %}{{ error }}{% endfor %}
@@ -212,23 +244,47 @@
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.birth_date.label_tag }}
 			        	{{ form.birth_date }}
+			        	<span class='aucilebel'>*</span>
 			        </div>
-        			<div id='errorDiv-8' class='error-holder'>
+        			<div id='errorDiv-9' class='error-holder'>
 						{% for error in form.birth_date.errors %}{{ error }}{% endfor %}
-					</div>								
+					</div>		
+					
+			        <!-- WORKPLACE -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.workplace.label_tag }}
+			        	{{ form.workplace }}
+			        </div>
+        			<div id='errorDiv-10' class='error-holder'>
+						{% for error in form.birth_date.errors %}{{ error }}{% endfor %}
+					</div>	
+					
+			        <!-- POSITION -->
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	{{ form.position.label_tag }}
+			        	{{ form.position }}
+			        </div>
+        			<div id='errorDiv-11' class='error-holder'>
+						{% for error in form.birth_date.errors %}{{ error }}{% endfor %}
+					</div>	
 
 					<div style='width: 100%; text-align: center'>
-						<input type='submit'
+						<input type='submit' onclick='return validate()' 
 							value='გაწევრიანება' style='margin-top: 20px !important' />
 					</div>
 				</form>
 				{% endif %}	
 				{% if success %}
-					თქვენ წარმატებით გაიარეთ რეგისტრაცია
+					<div style='width: 100%; text-align: center'>
+						<h2 style='color: #0f6d30'>მადლობა!</h2>
+						<h5 style='color: #667766; margin-bottom: 30px'>
+							თქვენ ხართ ახალი პოლიტიკური ცენტრის ბაზაში!<br /><br />
+							ეწვიეთ ჩვენს გვერდს Facebook-ზე:
+						</h5>
+						<div class="fb-page" data-href="https://www.facebook.com/NewPoliticalCenter" data-small-header="false" data-adapt-container-width="true" data-hide-cover="false" data-show-facepile="true" data-show-posts="false"><div class="fb-xfbml-parse-ignore"><blockquote cite="https://www.facebook.com/NewPoliticalCenter"><a href="https://www.facebook.com/NewPoliticalCenter">ახალი პოლიტიკური ცენტრი \ New Political Center</a></blockquote></div></div>
+					</div>
 				{% endif %}			
 			</div>
 		</div>
 	</div>
 </body>
-
--1

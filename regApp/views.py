@@ -10,7 +10,7 @@ def index(request):
 		# check whether it's valid:
 		if form.is_valid():
 			form.save()			
-			return render(request, 'regApp/index.html', {'success': success})
+			return render(request, 'regApp/index.html', {'success': 'success'})
 		else:
 			return render(request, 'regApp/index.html', {'form': form})
 

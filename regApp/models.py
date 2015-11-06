@@ -29,7 +29,8 @@ class Member(models.Model):
     last_name = models.CharField(max_length = 95, verbose_name = 'გვარი')
     personal_id = models.CharField(max_length = 12, verbose_name = 'პირადი ნომერი')    
     # contact
-    email = models.EmailField(verbose_name = 'ელ-ფოსტა')
+    fb_id = models.CharField(max_length = 190, blank = True, null = True)
+    email = models.EmailField(verbose_name = 'ელ-ფოსტა', blank = True, null = True)
     phone_type = models.CharField(
         choices = (
             ('mobile', 'მობილური'), 
@@ -38,15 +39,22 @@ class Member(models.Model):
         ),
         max_length = 12,
     )
-    phone = models.CharField(max_length = 15)    
+    phone = models.CharField(max_length = 15)   
     # location
-    district = models.ForeignKey(District, verbose_name = 'რაიონი')    
+    district = models.CharField(max_length = 95, verbose_name = 'რაიონი / რეგიონი')    
     settlement = models.CharField(max_length = 95, verbose_name = 'ქალაქი ან სოფელი')
     address = models.CharField(max_length = 190, verbose_name = 'მისამართი')        
     # demographics    
     birth_date = models.DateField(verbose_name = 'დაბადების თარიღი')
+    workplace = models.CharField(max_length = 190, verbose_name = 'სამუშაო ადგილი',
+        blank = True, null = True)
+    position = models.CharField(max_length = 190, verbose_name = 'თანამდებობა', 
+        blank = True, null = True)
     '''sex = models.CharField(choices = (('male', 'მამრობითი'), ('female', 'მდედრობითი')),
         max_length = 15) # should we limit to these 2?'''
+    
+    def __str__(self):
+        return self.first_name + ' ' + self.last_name
  
 
     

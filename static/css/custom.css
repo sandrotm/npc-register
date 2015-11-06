@@ -1,5 +1,5 @@
 input, select{
-	width: 60% !important;
+	width: 55% !important;
 	max-width: 300px !important;	
 	display: inline-block !important;
 	height: 30px !important;
@@ -34,7 +34,11 @@ select#id_birth_date_year{
 	width: 70px !important;		
 }
 
-select#id_district{
+input#id_district{
+	visibility: hidden !important;
+}
+
+select#id_district-mask{
 	width: 170px !important;		
 }
 
@@ -78,11 +82,17 @@ div.form-field-holder{
 }
 
 div.error-holder{
-	width: 100%; border-bottom: 1px dotted gray; 
-    color: red; font-size: 11px; padding-bottom: 10px
+	width: 100%; border-bottom: 1px dotted #99BB99; 
+    color: red; font-size: 11px; padding-bottom: 10px;
+    padding-left: 38%;
 }
 
 @font-face {
     font-family: lestudioCaps;
     src: url(../fonts/bpg_le_studio_02_caps.ttf);
+}
+
+.aucilebel{
+	color: #349238; position: relative; top: 16px; 
+	font-size: 40px; line-height: 30px;
 }

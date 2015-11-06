@@ -8,8 +8,25 @@ from django.core.validators import RegexValidator, MinLengthValidator, MaxLength
 # Create the form class.
 class MemberForm(ModelForm): 
     numeric_only = RegexValidator(r'^[0-9]{11,11}$', 'პირადი ნომერი ზუსტად 11 ციფრისგან შედგება')
-    telephone = RegexValidator(r'(\d{3})\D*(\d{3})\D*(\d{3})$')
+    telephone = RegexValidator(r'^([ +()]*\d){0,6}([ ]*\d){5,8}$')
     YEARS = list(reversed(range(1919, 2000))) #[x for x in range(1919, 1999)]
+    name_format = RegexValidator(r'^[ ]{0,1}[ა-ჰ]{1,15}[ -]{0,1}[ა-ჰ]{1,15}[ ]{0,1}$')
+
+    first_name = forms.CharField(
+        validators=[
+            name_format,
+            MinLengthValidator(2),
+            MaxLengthValidator(20)
+        ],                                  
+    )
+    
+    last_name = forms.CharField(
+        validators=[
+            name_format,
+            MinLengthValidator(2),
+            MaxLengthValidator(20)
+        ],                                  
+    )    
 
     personal_id = forms.CharField(
         validators=[
@@ -53,4 +70,5 @@ class MemberForm(ModelForm):
         fields = ('first_name', 'last_name', 'personal_id',
             'email', 'phone_type', 'phone', 
             'district', 'settlement', 'address',
-            'birth_date',)
+            'birth_date', 'workplace', 'position')
+        
