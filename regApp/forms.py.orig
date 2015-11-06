@@ -1,0 +1,59 @@
+from django import forms
+<<<<<<< HEAD
+from django.forms.extras.widgets import SelectDateWidget
+=======
+>>>>>>> 704f50c353fd200199c576b5ef6368da98f9a3af
+from django.forms import ModelForm
+from regApp.models import Member
+from django.core.validators import RegexValidator, MinLengthValidator, MaxLengthValidator
+#from django.forms.extras.widgets import TextInput
+
+# Create the form class.
+class MemberForm(ModelForm): 
+    numeric_only = RegexValidator(r'^[0-9]{11,11}$', 'პირადი ნომერი ზუსტად 11 ციფრისგან შედგება')
+<<<<<<< HEAD
+    telephone = RegexValidator(r'(\d{3})\D*(\d{3})\D*(\d{3})$')
+    YEARS = (x for x in range(1930, 2015))
+
+=======
+>>>>>>> 704f50c353fd200199c576b5ef6368da98f9a3af
+    personal_id = forms.CharField(validators=[
+            numeric_only,
+            MinLengthValidator(11),
+            MaxLengthValidator(11)
+        ], 
+        widget = forms.TextInput(attrs = { 
+            'size': '11',   
+            'required': 'true',
+            'placeholder': 'XXXXXXXXXXX',
+<<<<<<< HEAD
+            'id': 'id_personal_number'
+=======
+>>>>>>> 704f50c353fd200199c576b5ef6368da98f9a3af
+        }),
+        max_length = 11,
+        min_length = 11,
+        label = 'პირადი ნომერი',
+    )
+<<<<<<< HEAD
+
+    email = forms.EmailField(label='ელ-ფოსტა')
+
+    phone = forms.CharField(widget = forms.TextInput(attrs = {
+        'placeholder': 'xxx xxx xxx',
+        }),
+        validators = [telephone], 
+        label='ტელეფონის ნომერი',)
+
+    birth_date = forms.DateField(widget = SelectDateWidget(years = YEARS),
+        label = 'დაბადების თარიღი')
+    class Meta:
+        model = Member
+        fields = ('first_name', 'last_name', 'personal_id',
+            'email', 'phone_type', 'phone', 'birth_date',)
+=======
+    
+    class Meta:
+        model = Member
+        fields = '__all__'
+>>>>>>> 704f50c353fd200199c576b5ef6368da98f9a3af
