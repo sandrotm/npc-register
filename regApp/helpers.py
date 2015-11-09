@@ -7,3 +7,10 @@ def sendMail(subject, recipient, message):
 
 def generateUID():
 	return uuid.uuid4()
+
+def getConfirmationLink(email, uid):
+	Email = str(email).replace('@', 'atsymbol') + '/'
+	UID = str(uid)
+	link = 'http://www.npc.ge/emailconfirmation/'
+	link += Email + UID
+	return link
