@@ -1,5 +1,5 @@
 input, select{
-	width: 55% !important;
+	width: 55% !important;	
 	max-width: 300px !important;	
 	display: inline-block !important;
 	height: 30px !important;
@@ -27,7 +27,7 @@ select#id_birth_date_day, select#id_birth_date_month, select#id_birth_date_year{
 }
 
 select#id_birth_date_month{
-	width: 90px !important;	
+	width: 97px !important;	
 }
 
 select#id_birth_date_year{
@@ -64,7 +64,7 @@ input#id_phone{
 	width: 100px !important;
 }
 
-label{
+div label:first-child{
 	width: 20% !important;
 	min-width: 150px !important;
 	margin: 0 5% 0 0 !important;
@@ -77,8 +77,22 @@ label{
 	top: 15px !important;
 }
 
+div label:last-child{
+
+}
+
 div.form-field-holder{
 	
+}
+
+small.error{
+	width: 55%;
+	margin: 0 !important;
+	padding: 0 2px 2px 4px !important;
+    margin-left: 38% !important;
+    display: inline-block;
+    position: relative;
+    left: -1px;	
 }
 
 div.error-holder{
