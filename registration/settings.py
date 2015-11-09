@@ -137,3 +137,9 @@ AUTHENTICATION_BACKENDS = (
 )
 
 SITE_ID = 2
+
+#MAIL SETTINGS
+EMAIL_HOST = 'smtp.webfaction.com'
+EMAIL_HOST_USER = 'npc_mailbox'
+EMAIL_HOST_PASSWORD = 'BlackViking13'
+EMAIL_PORT = 587
