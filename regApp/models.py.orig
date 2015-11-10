@@ -23,16 +23,18 @@ class Phone(models.Model):
     person = models.ForeignKey('Member')'''
 # break down for 3 or more parameters
 
-
 class Member(models.Model):
     # identity
     first_name = models.CharField(max_length = 95, verbose_name = 'სახელი')
     last_name = models.CharField(max_length = 95, verbose_name = 'გვარი')
-    personal_id = models.CharField(max_length = 12, verbose_name = 'პირადი ნომერი') 
+<<<<<<< HEAD
+    personal_id = models.CharField(
         max_length = 12, 
         unique = True,
         verbose_name = 'პირადი ნომერი',        
     ) 
+=======
+    personal_id = models.CharField(max_length = 12, verbose_name = 'პირადი ნომერი') 
     email_confirm = models.CharField(max_length = 95, 
         choices = (
             ('fail', 'ვერ გაიგზავნა'),
@@ -43,6 +45,7 @@ class Member(models.Model):
     )
     member_confirm_id = models.CharField(max_length = 12, unique = True, 
         verbose_name = 'წევრის უნიკალური იდენტიფიკატორი', blank = True, null = True)
+>>>>>>> 5e53e2be481a3189269dd65f5425a6eaf6254523
     # contact
     fb_id = models.CharField(max_length = 190, blank = True, null = True)
     email = models.EmailField(verbose_name = 'ელ-ფოსტა')
@@ -56,6 +59,7 @@ class Member(models.Model):
         default = 'mobile',
     )
     phone = models.CharField(max_length = 15, blank = True, null = True)   
+<<<<<<< HEAD
     # confirmation
     email_confirm = models.CharField(
         max_length = 95, 
@@ -72,32 +76,46 @@ class Member(models.Model):
         blank = True, null = True,
         verbose_name = 'წევრის უნიკალური იდენტიფიკატორი',
     )    
+=======
+>>>>>>> 5e53e2be481a3189269dd65f5425a6eaf6254523
     # location
     district = models.CharField(max_length = 95, verbose_name = 'რაიონი / რეგიონი')    
     settlement = models.CharField(max_length = 95, verbose_name = 'ქალაქი ან სოფელი')
     address = models.CharField(max_length = 190, verbose_name = 'მისამართი')        
     # demographics    
     birth_date = models.DateField(verbose_name = 'დაბადების თარიღი')
+<<<<<<< HEAD
     workplace = models.CharField(
         max_length = 190, 
         blank = True, null = True,
         verbose_name = 'სამუშაო ადგილი',        
+    )
+    position = models.CharField(
+        max_length = 190, 
+        blank = True, null = True,
+        verbose_name = 'თანამდებობა',         
+    )
+    sex = models.CharField(
+        max_length = 15, 
+=======
+    workplace = models.CharField(max_length = 190, verbose_name = 'სამუშაო ადგილი',
+        blank = True, null = True)
+    position = models.CharField(max_length = 190, verbose_name = 'თანამდებობა', 
+        blank = True, null = True)
     sex = models.CharField(max_length = 15, 
+>>>>>>> 5e53e2be481a3189269dd65f5425a6eaf6254523
         choices = (
             ('unknown', 'უცნობი'),
             ('male', 'მამრობითი'), 
             ('female', 'მდედრობითი'),
             ('other', 'სხვა'),
         ),
-        default = 'unknown'
-    )
-            ('unknown', 'უცნობი'),
-            ('male', 'მამრობითი'), 
-            ('female', 'მდედრობითი'),
-            ('other', 'სხვა'),
-        ),
+<<<<<<< HEAD
         default = 'unknown',
         blank = True, null = True,
+=======
+        default = 'unknown'
+>>>>>>> 5e53e2be481a3189269dd65f5425a6eaf6254523
     )
     
     def __str__(self):

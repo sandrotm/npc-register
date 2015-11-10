@@ -26,115 +26,121 @@
 
 <body>
 
-<script src="{% static 'js/jquery.js' %}"></script>
-<!-- GEORGIAN KEYBOARD -->
-<script src="{% static 'js/jquery.geokbd.js' %}"></script>
-
-<div id="fb-root"></div>
-<script>(function(d, s, id) {
-  var js, fjs = d.getElementsByTagName(s)[0];
-  if (d.getElementById(id)) return;
-  js = d.createElement(s); js.id = id;
-  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=490687911029882";
-  fjs.parentNode.insertBefore(js, fjs);
-}(document, 'script', 'facebook-jssdk'));</script>
-
-<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
-<script type="text/javascript">
-	var fnameHTML = "<div class='form-field-holder'>" 
-		+ "<label for='id_fname'>სახელი:</label>" 
-		+ "<input id='id_fname' maxlength='95' type='text'></div>"
-	var lnameHTML = "<div style='width:100%;'>"
-		+ "<label for='id_lname'>გვარი:</label>"
-		+ "<input id='id_lname' maxlength='95' type='text'></div>"
-
-	var personalNumHTML = "<div class='form-field-holder'>"
-		+ "<label for='personalNum' style='height: 40px !important; "
-		+ "top: 14px !important; margin-top: -14px !important'>"
-		+ "გაიმეორეთ პირადი ნომერი:</label>"
-		+ "<input id='id_personal_id-repeat' maxlength='11' required "
-		+ "placeholder='XXXXXXXXXXX' style='margin-left: 4px !important; "
-		+ "margin-right: 4px !important' type='text'>"
-		+ "<span class='aucilebel'>*</span></div>"
-
-	var errorDiv = "<div id='errorDiv-31' class='error-holder'></div>"
-
-	var errors;
-	var selectedItem = '';
-
-	$(document).ready(function(){
-		$('#kbd-switcher').geokbd();
-		/*errorDiv = errorDiv.replace('DIV_ID', 'errorDiv1');
-		$(fnameHTML).insertAfter($('#errorDiv'));
-		$(errorDiv).insertAfter($('#id_fname').closest('div'));
-		$(lnameHTML).insertAfter($('#errorDiv1'));
-		$(errorDiv).insertAfter($('#id_lname').closest('div'));
-		errorDiv = errorDiv.replace('errorDiv1', 'errorDiv2')
-		$(errorDiv).insertAfter($('#id_personal_id').closest('div'));*/
-		$(personalNumHTML + errorDiv).insertAfter($('#errorDiv-3'));
-		/*$('#id_fname').val($('#id_first_name').val())
-		$('#id_lname').val($('#id_last_name').val())*/
-		$('#id_personal_id-repeat').val($('#id_personal_id').val())
-		
-		var currentDistrict = $('#id_district').val();
-		var query = '#id_district-mask option:contains(' + currentDistrict + ')';
-		$(query).attr('selected', true);
-	});
-
-	function validate(){
-		/*var fname1 = $('#id_fname');
-		var fname2 = $('#id_first_name');
-		var lname1 = $('#id_lname');
-		var lname2 = $('#id_last_name');*/
-		var pnum1 = $('#id_personal_id');
-		var pnum2 = $('#id_personal_id-repeat');
-		var errorString = '';
-		/*console.log(fname1.val() + ' - ' + fname2.val())
-		if (fname1.val() == '' || fname2 == '')
-			console.log('validation error fname blank')
-		if (lname2.val() == '' || fname2 == '')
-			console.log('validation error lname blank')*/
-		/*if (fname1.val() != fname2.val())
-			console.log('validation error no fname match')
-		if (lname1.val() != lname2.val())
-			console.log('validation error no lname match')*/
-		if (pnum1.val() != pnum2.val()){
-			$('#errorDiv-31').text('პირადი ნომრები არ ემთხვევა')
-			return false }
-		else
-			return true
-	}
-
-	$('#id_first_name').geokbd();
+	<script src="{% static 'js/jquery.js' %}"></script>
+	<!-- GEORGIAN KEYBOARD -->
+	<script src="{% static 'js/jquery.geokbd.js' %}"></script>
+	<script src="{% static 'js/foundation.js' %}"></script>
+	<script src="{% static 'js/foundation.abide.js' %}"></script>
 	
-	function selected(element){
-		value = $('#id_district-mask option:selected').text();
-		selectedItem = value;
-		$('#id_district').attr('value', value);
-	}	
-</script>
+	<div id="fb-root"></div>
+	<script>(function(d, s, id) {
+	  var js, fjs = d.getElementsByTagName(s)[0];
+	  if (d.getElementById(id)) return;
+	  js = d.createElement(s); js.id = id;
+	  js.src = "//connect.facebook.net/en_GB/sdk.js#xfbml=1&version=v2.5&appId=490687911029882";
+	  fjs.parentNode.insertBefore(js, fjs);
+	}(document, 'script', 'facebook-jssdk'));</script>
+
+	<!--<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>-->
+	<script type="text/javascript">		
+		/*var fnameHTML = "<div class='form-field-holder'>" 
+			+ "<label for='id_fname'>სახელი:</label>" 
+			+ "<input id='id_fname' maxlength='95' type='text'></div>"
+		var lnameHTML = "<div style='width:100%;'>"
+			+ "<label for='id_lname'>გვარი:</label>"
+			+ "<input id='id_lname' maxlength='95' type='text'></div>"
+	
+		var personalNumHTML = "<div class='form-field-holder'>"
+			+ "<label for='personalNum' style='height: 40px !important; "
+			+ "top: 14px !important; margin-top: -14px !important'>"
+			+ "გაიმეორეთ პირადი ნომერი:</label>"
+			+ "<input id='id_personal_id-repeat' maxlength='11' required "
+			+ "placeholder='XXXXXXXXXXX' style='margin-left: 4px !important; "
+			+ "margin-right: 4px !important' type='text'>"
+			+ "<span class='aucilebel'>*</span></div>"
+	
+		var errorDiv = "<div id='errorDiv-31' class='error-holder'></div>"*/
+	
+		var errors;
+		var selectedItem = '';
+	
+		$(document).ready(function(){
+			$('#kbd-switcher').geokbd();
+			/*errorDiv = errorDiv.replace('DIV_ID', 'errorDiv1');
+			$(fnameHTML).insertAfter($('#errorDiv'));
+			$(errorDiv).insertAfter($('#id_fname').closest('div'));
+			$(lnameHTML).insertAfter($('#errorDiv1'));
+			$(errorDiv).insertAfter($('#id_lname').closest('div'));
+			errorDiv = errorDiv.replace('errorDiv1', 'errorDiv2')
+			$(errorDiv).insertAfter($('#id_personal_id').closest('div'));*/
+			//$(personalNumHTML + errorDiv).insertAfter($('#errorDiv-3'));
+			/*$('#id_fname').val($('#id_first_name').val())
+			$('#id_lname').val($('#id_last_name').val())*/
+			//$('#id_personal_id-repeat').val($('#id_personal_id').val())
+			
+			var currentDistrict = $('#id_district').val();
+			if(currentDistrict != ''){
+				var query = '#id_district-mask option:contains(' + currentDistrict + ')';
+				$(query).attr('selected', true);
+			}
+		});
+	
+		function validate(){
+			/*var fname1 = $('#id_fname');
+			var fname2 = $('#id_first_name');
+			var lname1 = $('#id_lname');
+			var lname2 = $('#id_last_name');*/
+			var pnum1 = $('#id_personal_id');
+			var pnum2 = $('#id_personal_id-repeat');
+			var errorString = '';
+			/*console.log(fname1.val() + ' - ' + fname2.val())
+			if (fname1.val() == '' || fname2 == '')
+				console.log('validation error fname blank')
+			if (lname2.val() == '' || fname2 == '')
+				console.log('validation error lname blank')*/
+			/*if (fname1.val() != fname2.val())
+				console.log('validation error no fname match')
+			if (lname1.val() != lname2.val())
+				console.log('validation error no lname match')*/
+			if (pnum1.val() != pnum2.val()){
+				$('#errorDiv-31').text('პირადი ნომრები არ ემთხვევა')
+				return false }
+			else
+				return true
+		}
+	
+		$('#id_first_name').geokbd();
+		
+		function selected(element){
+			value = $('#id_district-mask option:selected').text();
+			selectedItem = value;
+			$('#id_district').attr('value', value);
+		}
+	</script>
 
 
 	<div class='full-width'>
-		<div class='row' style='padding-top: 40px; margin-bottom: 20px'>
+		<div class='row' style='padding-top: 20px; margin-bottom: 20px'>
 			<div class='columns small-12 medium-9 large-6 small-centered'>
-				<div style='width: 30%; text-align: right; float: left'>
+				<div style='width: 30%; text-align: right; float: left;
+					margin-left: 5%;'>
 					<h3 style='font-family: lestudioCaps;
 						font-size: 20px; text-align: right;
-						line-height: 22px; margin-top: 70px; color: #667766;
+						line-height: 22px; margin-top: 50px; color: #667766;
 						margin-right: 30px'>
-						NEW<br/>POLITICAL<br/>CENTER<br/><nobr>&mdash; GIRCHI</nobr>
+						NEW<br/>POLITICAL<br/>CENTER<br/>GIRCHI
 					</h3>				
 				</div>
-				<div style='width: 40%; text-align: right; float: left'>
-					<img src='../media/images/npc_header3.png' style='float: left'/>
+				<div style='width: 30%; text-align: right; float: left'>
+					<img src='../media/images/npc_header3.png'
+						width='150px' style='float: left'/>
 				</div>
 				<div style='width: 30%; text-align: left; float: left'>
 					<h3 style='font-family: lestudioCaps;
 						font-size: 20px;
-						line-height: 22px; margin-top: 70px; color: #667766;
+						line-height: 22px; margin-top: 50px; color: #667766;
 						margin-left: 30px'>
-						ახალი<br/>პოლიტიკური<br/><nobr>ცენტრი &mdash;</nobr><br/>გირჩი
+						ახალი<br/>პოლიტიკური<br/>ცენტრი<br/>გირჩი<!--<nobr> &mdash;</nobr>-->
 					</h3>
 				</div>
 			</div>
@@ -148,9 +154,9 @@
 						<span class='aucilebel'>*</span>
 							 &mdash; აუცილებელი ველი
 					</h5>
-					<input id='kbd-switcher' type="checkbox" style="" />
+					<input id='kbd-switcher' type="checkbox"/> ქართულად წერა
 				</div>				
-				<form action='.' method='POST'>
+				<form action='.' method='POST' data-abide>
 					{% csrf_token %}
 			        <!-- FIRSTNAME -->
         			<div id='errorDiv-0' style='width: 100%; color: red; text-align: center'>
@@ -160,47 +166,80 @@
 					</div>			        
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.first_name.label_tag }}
-			        	{{ form.first_name }}
+			        	<input id="id_first_name" name="first_name" type="text" 
+			        		required pattern="^[ ]{0,1}[ა-ჰ]{1,15}[ -]{0,1}[ა-ჰ]{1,15}[ ]{0,1}$">
+			        	{% comment %}{{ form.first_name }}{% endcomment %} 
 			        	<span class='aucilebel'>*</span>
+			        	<small class="error">სახელის შეყვანა აუცილებელია.
+			        		სახელი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს.</small>
 			        </div>
         			<div id='errorDiv-1' class='error-holder'>
 						{% for error in form.first_name.errors %}{{ error }}{% endfor %}
 					</div>	
+					
 			        <!-- LASTNAME -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.last_name.label_tag }}
-			        	{{ form.last_name }}
+			        	<input id="id_last_name" name="last_name" type="text" 
+			        		required pattern="^[ ]{0,1}[ა-ჰ]{1,15}[ -]{0,1}[ა-ჰ]{1,15}[ ]{0,1}$">
 			        	<span class='aucilebel'>*</span>
+			        	<small class="error">გვარის შეყვანა აუცილებელია.
+			        		გვარი უნდა შეიცავდეს მხოლოდ ქართულ ასოებს.</small>			        	
 			        </div>
         			<div id='errorDiv-2' class='error-holder'>
 						{% for error in form.last_name.errors %}{{ error }}{% endfor %}
 					</div>
+					
 			        <!-- PERSONAL ID -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.personal_id.label_tag }}
-			        	{{ form.personal_id }}
+			        	<input id="id_personal_id" maxlength="11" name="personal_id" 
+			        		placeholder="XXXXXXXXXXX" size="11" 
+			        		type="text" aria-invalid="false"
+			        		required pattern="^[0-9]{11,11}$">
 			        	<span class='aucilebel'>*</span>
+			        	<small class="error">გთხოვთ შეიყვანოთ რეალური პირადი ნომერი.</small>
 			        </div>
         			<div id='errorDiv-3' class='error-holder'>
 						{% for error in form.personal_id.errors %}{{ error }}{% endfor %}
 					</div>	
+			        <div class='form-field-holder' style='width: 100%;'>
+			        	<label for="id_personal_id-confirm" class="error" role="alert"
+			        		style='height: 40px !important; top: 15px !important; 
+			        		margin-top: -15px !important'>
+			        		გაიმეორეთ პირადი ნომერი:</label>
+			        	<input id="id_personal_id-repeat" maxlength="11" name="personal_id" 
+			        		placeholder="XXXXXXXXXXX" size="11" 
+			        		type="text" aria-invalid="false"
+			        		required data-equalto="id_personal_id">
+			        	<span class='aucilebel'>*</span>
+			        	<small class="error">პირადი ნომრები არ ემთხვევა.</small>
+			        </div>	
+        			<div id='errorDiv-31' class='error-holder'>
+					</div>	
 							
 			        <!-- FACEBOOK -->
 			        <!--<a href="{% provider_login_url 'facebook' method='oauth2' next='/register/' %}">fb_auth</a>-->
+			        
 			        <!-- EMAIL -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.email.label_tag }}
-			        	{{ form.email }}
+			        	<input id="id_email" name="email" type="email" required>
+			        	<span class='aucilebel'>*</span>
+			        	<small class="error">გთხოვთ შეიყვანოთ ელ-ფოსტის რეალური მისამართი</small>
 			        </div>
         			<div id='errorDiv-4' class='error-holder'>
 						{% for error in form.email.errors %}{{ error }}{% endfor %}
 					</div>
+			        
 			        <!-- PHONE TYPE / PHONE -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.phone.label_tag }}
 			        	{{ form.phone_type }}
-			        	{{ form.phone }}
-			        	<span class='aucilebel'>*</span>
+			        	<input id="id_phone" maxlength="20" name="phone" 
+			        		placeholder="XXXXXXXXXXXXXX" type="text" aria-invalid="false"  
+			        		required pattern="^([ +()]*\d){0,6}([ ]*\d){5,8}$">
+			        	<small class="error">გთხოვთ შეიყვანოთ რეალური ტელეფონის ნომერი</small>
 			        </div>
         			<div id='errorDiv-5' class='error-holder'>
         				{% for error in form.phone_type.errors %}
@@ -227,8 +266,11 @@
 			        <!-- SETTLEMENT -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.settlement.label_tag }}
-			        	{{ form.settlement }}
+			        	<input id="id_settlement" name="settlement" type="text" 
+			        		aria-invalid="false" required 
+			        		pattern='^[ ]{0,1}[ა-ჰa-zA-Z&]{1,15}[ -]{0,1}[ა-ჰa-zA-Z&]{1,15}[ ]{0,1}$'>
 			        	<span class='aucilebel'>*</span>
+			        	<small class="error">გთხოვთ შეიყვანოთ რეალური ქალაქი ან სოფელი</small>
 			        </div>
         			<div id='errorDiv-7' class='error-holder'>
 						{% for error in form.settlement.errors %}{{ error }}{% endfor %}
@@ -237,8 +279,10 @@
 			        <!-- ADDRESS -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.address.label_tag }}
-			        	{{ form.address }}
+			        	<input id="id_address" name="address" type="text" 
+			        		aria-invalid="false" required pattern='^[ -/|#,.ა-ჰa-zA-Z&0-9]{5,190}$'>
 			        	<span class='aucilebel'>*</span>
+			        	<small class="error">გთხოვთ შეიყვანოთ რეალური ქალაქი ან სოფელი</small>
 			        </div>
         			<div id='errorDiv-8' class='error-holder'>
 						{% for error in form.address.errors %}{{ error }}{% endfor %}
@@ -257,7 +301,9 @@
 			        <!-- WORKPLACE -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.workplace.label_tag }}
-			        	{{ form.workplace }}
+			        	<input id="id_workplace" name="workplace" type="text" 
+			        		aria-invalid="false" pattern='^[ -/|#,.ა-ჰa-zA-Z&?0-9]{5,190}$'>
+			        	<small class="error">გთხოვთ შეიყვანოთ რეალური სამუშაო ადგილი</small>
 			        </div>
         			<div id='errorDiv-10' class='error-holder'>
 						{% for error in form.birth_date.errors %}{{ error }}{% endfor %}
@@ -266,15 +312,17 @@
 			        <!-- POSITION -->
 			        <div class='form-field-holder' style='width: 100%;'>
 			        	{{ form.position.label_tag }}
-			        	{{ form.position }}
+			        	<input id="id_position" name="position" type="text" 
+			        		aria-invalid="false" pattern='^[ -/|#,.ა-ჰa-zA-Z&0-9]{3,190}$'>
+			        	<small class="error">გთხოვთ შეიყვანოთ რეალური თანამდებობა</small>
 			        </div>
         			<div id='errorDiv-11' class='error-holder'>
 						{% for error in form.birth_date.errors %}{{ error }}{% endfor %}
 					</div>	
 
 					<div style='width: 100%; text-align: center'>
-						<input type='submit' onclick='return validate()' 
-							value='გაწევრიანება' style='margin-top: 20px !important' />
+						<input type='submit' value='გაწევრიანება' style='margin-top: 20px !important' />
+						<!-- onclick='return validate()'-->
 					</div>
 				</form>
 				{% endif %}	
@@ -291,4 +339,30 @@
 			</div>
 		</div>
 	</div>
+	
+	
+	<script>
+		$(document).foundation({
+			abide : {
+				timeout: 300
+			}
+		});
+		$('#id_birth_date_month').on('change', function() {
+			monthName = $('#id_birth_date_month option:selected').text()
+			$('#id_birth_date_day').empty()
+			for(var i = 1; i < 30; i++)
+				$('#id_birth_date_day').append('<option value="' + i + '">' + i + '</option>')
+			
+			if(monthName == 'თებერვალი'){
+			}
+			else if(monthName == 'აპრილი' || monthName == 'ივნისი' || monthName == 'სექტემბერი' 
+				|| monthName == 'ნოემბერი'){
+				$('#id_birth_date_day').append('<option value="30">30</option>')
+			}
+			else{
+				$('#id_birth_date_day').append('<option value="30">30</option>')
+				$('#id_birth_date_day').append('<option value="31">31</option>')
+			}
+		})
+	</script>	
 </body>

@@ -7,30 +7,36 @@ from django.core.validators import RegexValidator, MinLengthValidator, MaxLength
 
 # Create the form class.
 class MemberForm(ModelForm): 
-    numeric_only = RegexValidator(r'^[0-9]{11,11}$', 'პირადი ნომერი ზუსტად 11 ციფრისგან შედგება')
-    telephone = RegexValidator(r'^([ +()]*\d){0,6}([ ]*\d){5,8}$')
-    YEARS = list(reversed(range(1919, 2000))) #[x for x in range(1919, 1999)]
-    name_format = RegexValidator(r'^[ ]{0,1}[ა-ჰ]{1,15}[ -]{0,1}[ა-ჰ]{1,15}[ ]{0,1}$')
+    YEARS = list(reversed(range(1919, 2000))) #[x for x in range(1919, 1999)]    
+    personal_id_format = RegexValidator(r'^[0-9]{11,11}$', 'პირადი ნომერი ზუსტად 11 ციფრისგან შედგება')
+    phone_format = RegexValidator(r'^([ +()]*\d){0,6}([ ]*\d){5,8}$')
+    name_format = RegexValidator(r'^[ ]{0,1}[ა-ჰ]{1,20}[ -]{0,1}[ა-ჰ]{1,20}[ ]{0,1}$')
+    settlement_format = RegexValidator(r'^[ ]{0,1}[ა-ჰa-zA-Z&]{1,15}[ -]{0,1}[ა-ჰa-zA-Z&]{1,15}[ ]{0,1}$')
+    address_format = RegexValidator(r'^[ -/|#,.ა-ჰa-zA-Z&0-9]{5,190}$')
+    workplace_format = RegexValidator(r'^[ -/|#,.ა-ჰa-zA-Z&?0-9]{5,190}$')
+    position_format = RegexValidator(r'^[ -/|#,.ა-ჰa-zA-Z&0-9]{3,190}$')
 
     first_name = forms.CharField(
         validators=[
             name_format,
             MinLengthValidator(2),
-            MaxLengthValidator(20)
-        ],                                  
+            MaxLengthValidator(40),
+        ], 
+        label = 'სახელი',                                 
     )
     
     last_name = forms.CharField(
         validators=[
             name_format,
             MinLengthValidator(2),
-            MaxLengthValidator(20)
-        ],                                  
+            MaxLengthValidator(40)
+        ],   
+        label = 'გვარი',                               
     )    
 
     personal_id = forms.CharField(
         validators=[
-            numeric_only,
+            personal_id_format,
             MinLengthValidator(11),
             MaxLengthValidator(11)
         ], 
@@ -48,7 +54,7 @@ class MemberForm(ModelForm):
 
     phone = forms.CharField(
         validators = [
-            telephone,
+            phone_format,
             MinLengthValidator(7),
             MaxLengthValidator(20)            
         ],                            
@@ -65,6 +71,42 @@ class MemberForm(ModelForm):
         label = 'დაბადების თარიღი'
     )
     
+    settlement = forms.CharField(
+        validators=[
+            settlement_format,
+            MinLengthValidator(2),
+            MaxLengthValidator(40),
+        ], 
+        label = 'ქალაქი ან სოფელი',            
+    )
+    
+    address = forms.CharField(
+        validators=[
+            address_format,
+            MinLengthValidator(5),
+            MaxLengthValidator(190),
+        ], 
+        label = 'მისამართი',            
+    )    
+    
+    workplace = forms.CharField(
+        validators=[
+            workplace_format,
+            MinLengthValidator(5),
+            MaxLengthValidator(190),
+        ], 
+        label = 'სამუშაო ადგილი',    
+    )
+    
+    position = forms.CharField(
+        validators=[
+            position_format,
+            MinLengthValidator(5),
+            MaxLengthValidator(190),
+        ], 
+        label = 'თანამდებობა',    
+    )    
+      
     class Meta:
         model = Member
         fields = ('first_name', 'last_name', 'personal_id',
