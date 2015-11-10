@@ -4,7 +4,9 @@ from .forms import MemberForm
 from .models import Member
 from .helpers import sendMail, generateUID, getConfirmationLink
 
+from django.views.decorators.csrf import csrf_exempt
 
+@csrf_exempt
 def index(request):
 	if request.method == 'POST':
 
@@ -12,17 +14,22 @@ def index(request):
 		# check whether it's valid:
 		if form.is_valid():
 			newMember = form.save()
-			newMember.email_confirm = 'uncomfirmed'
+			newMember.email_confirm = 'unconfirmed'
 			newMember.member_confirm_id = str(generateUID())	
 			try:
+				mail_list = []
+				mail_list.append(newMember.email)
 				sendMail('ახალი პოლიტიკური ცენტრი', 
-					[newMember.email],
+					mail_list,
 					'თუ თქვენ შეავსეთ ახალ პოლიტიკურ ცენტრში გაწევრიანების ფორმა ' + 
 					'გთხოვთ დაადასტუროთ შემდეგ მისამართზე დაჭერით ' + 
-					str(getConfirmationLink()))
+					getConfirmationLink(newMember.email, newMember.member_confirm_id))
 			except Exception as ge:
 				newMember.email_confirm = 'fail'
+				return HttpResponse(str(ge))
 			newMember.save()
+			form = MemberForm()
+			
 			return render(request, 'regApp/index.html', {'success': 'success'})
 		else:
 			return render(request, 'regApp/index.html', {'form': form})
@@ -36,14 +43,17 @@ def index(request):
 def confirm(request, mail, uid):
 	#print(mail)
 	#print(uid)
-	mail = mail.replace('atsymbol', '@')
+	mail = mail.replace('at_symbol', '@')
+	mail = mail.replace('dot_symbol', '.')
 	try:
 		member = Member.objects.filter(
 			email = mail).filter(
 			member_confirm_id = uid)
 		if len(member) > 0:
-			member.email_confirm = 'confirmed'
-			member.save()
+			member[0].email_confirm = 'confirmed'
+			member[0].save()
+			return HttpResponse('confirmed')
+		else:
+			return HttpResponse('no member like this')
 	except Exception as ge:
-		print(str(ge))
-		return HttpResponse("error ")
+		return HttpResponse("error occured")
