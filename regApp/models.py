@@ -28,8 +28,8 @@ class Member(models.Model):
     # identity
     first_name = models.CharField(max_length = 95, verbose_name = 'სახელი')
     last_name = models.CharField(max_length = 95, verbose_name = 'გვარი')
-    personal_id = models.CharField(max_length = 12, verbose_name = 'პირადი ნომერი') 
-        max_length = 12, 
+    personal_id = models.CharField(
+        max_length = 36, 
         unique = True,
         verbose_name = 'პირადი ნომერი',        
     ) 
@@ -81,7 +81,7 @@ class Member(models.Model):
     workplace = models.CharField(
         max_length = 190, 
         blank = True, null = True,
-        verbose_name = 'სამუშაო ადგილი',        
+        verbose_name = 'სამუშაო ადგილი',)       
     sex = models.CharField(max_length = 15, 
         choices = (
             ('unknown', 'უცნობი'),
@@ -89,15 +89,9 @@ class Member(models.Model):
             ('female', 'მდედრობითი'),
             ('other', 'სხვა'),
         ),
-        default = 'unknown'
-    )
-            ('unknown', 'უცნობი'),
-            ('male', 'მამრობითი'), 
-            ('female', 'მდედრობითი'),
-            ('other', 'სხვა'),
-        ),
         default = 'unknown',
-        blank = True, null = True,
+        blank = True, 
+        null = True,
     )
     
     def __str__(self):
