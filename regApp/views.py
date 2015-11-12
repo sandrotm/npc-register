@@ -43,8 +43,9 @@ def index(request):
 def confirm(request, mail, uid):
 	#print(mail)
 	#print(uid)
-	mail = mail.replace('at_symbol', '@')
-	mail = mail.replace('dot_symbol', '.')
+	#mail = mail.replace('at_symbol', '@')
+	#mail = mail.replace('dot_symbol', '.')
+	mail = processMail(mail, extract = True)
 	try:
 		member = Member.objects.filter(
 			email = mail).filter(

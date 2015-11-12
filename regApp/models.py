@@ -94,6 +94,22 @@ class Member(models.Model):
         null = True,
     )
     
+    def sendConfirmationMail(self):
+        try:
+            print(self.email)
+            mail_list = []
+            mail_list.append(self.email)
+            sendMail('ახალი პოლიტიკური ცენტრი', 
+                        mail_list,
+                        'თუ თქვენ შეავსეთ ახალ პოლიტიკურ ცენტრში გაწევრიანების ფორმა ' + 
+                        'გთხოვთ დაადასტუროთ შემდეგ მისამართზე დაჭერით ' + 
+                        str(getConfirmationLink(self.email, self.member_confirm_id)))
+            self.email_confirm = 'unconfirmed'
+            print('sent')
+        except Exception as ge:
+            self.email_confirm = 'fail'
+            print(ge)
+
     def __str__(self):
         return self.first_name + ' ' + self.last_name
     
